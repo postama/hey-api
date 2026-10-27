@@ -176,10 +176,10 @@ export const createClient = (config: Config = {}): Client => {
     const { opts, url } = await beforeRequest(options);
     return createSseClient({
       ...unwrapRefs(opts),
-      body: opts.body as BodyInit | null | undefined,
+      body: opts.body as RequestInit['body'],
       method,
       onRequest: undefined,
-      serializedBody: getValidRequestBody(opts) as BodyInit | null | undefined,
+      serializedBody: getValidRequestBody(opts) as RequestInit['body'],
       signal: unwrapRefs(opts.signal) as AbortSignal,
       url,
     });

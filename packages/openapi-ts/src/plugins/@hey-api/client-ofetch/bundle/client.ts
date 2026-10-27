@@ -21,7 +21,7 @@ import {
 } from './utils';
 
 type ReqInit = Omit<RequestInit, 'body' | 'headers'> & {
-  body?: BodyInit | null | undefined;
+  body?: RequestInit['body'];
   headers: ReturnType<typeof mergeHeaders>;
 };
 
@@ -100,7 +100,7 @@ export const createClient = (config: Config = {}): Client => {
   const applyRequestInterceptors = async (
     request: Request,
     opts: ResolvedRequestOptions,
-    body: BodyInit | null | undefined,
+    body: RequestInit['body'],
   ) => {
     for (const fn of interceptors.request.fns) {
       if (fn) {
@@ -132,7 +132,7 @@ export const createClient = (config: Config = {}): Client => {
   // build ofetch options with stable retry logic based on body repeatability
   const buildNetworkOptions = (
     opts: ResolvedRequestOptions,
-    body: BodyInit | null | undefined,
+    body: RequestInit['body'],
     responseType: OfetchResponseType | undefined,
   ) => {
     const effectiveRetry = isRepeatableBody(body) ? opts.retry : 0;

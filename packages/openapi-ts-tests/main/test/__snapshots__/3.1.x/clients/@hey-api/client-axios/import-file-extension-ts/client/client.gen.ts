@@ -118,10 +118,10 @@ export const createClient = (config: Config = {}): Client => {
     const { opts, url } = await beforeRequest(options);
     return createSseClient({
       ...opts,
-      body: opts.body as BodyInit | null | undefined,
+      body: opts.body as RequestInit['body'],
       headers: opts.headers as Record<string, string>,
       method,
-      serializedBody: getValidRequestBody(opts) as BodyInit | null | undefined,
+      serializedBody: getValidRequestBody(opts) as RequestInit['body'],
       // @ts-expect-error
       signal: opts.signal,
       url,

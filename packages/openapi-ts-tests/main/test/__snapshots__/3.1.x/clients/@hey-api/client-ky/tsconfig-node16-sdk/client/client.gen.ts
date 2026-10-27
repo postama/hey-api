@@ -133,7 +133,7 @@ export const createClient = (config: Config = {}): Client => {
       const validBody = getValidRequestBody(opts);
 
       const kyOptions: KyOptions = {
-        body: validBody as BodyInit,
+        body: validBody as RequestInit['body'],
         ...(opts.cache !== undefined ? { cache: opts.cache } : {}),
         ...(opts.credentials !== undefined ? { credentials: opts.credentials } : {}),
         ...(opts.headers !== undefined ? { headers: opts.headers } : {}),
@@ -153,7 +153,7 @@ export const createClient = (config: Config = {}): Client => {
 
       request = new Request(url, {
         body: kyOptions.body,
-        headers: kyOptions.headers as HeadersInit,
+        headers: kyOptions.headers as RequestInit['headers'],
         method: kyOptions.method,
       });
 
@@ -313,7 +313,7 @@ export const createClient = (config: Config = {}): Client => {
     const { opts, url } = await beforeRequest(options);
     return createSseClient({
       ...opts,
-      body: opts.body as BodyInit | null | undefined,
+      body: opts.body as RequestInit['body'],
       fetch: globalThis.fetch,
       method,
       onRequest: async (url, init) => {
@@ -325,7 +325,7 @@ export const createClient = (config: Config = {}): Client => {
         }
         return request;
       },
-      serializedBody: getValidRequestBody(opts) as BodyInit | null | undefined,
+      serializedBody: getValidRequestBody(opts) as RequestInit['body'],
       url,
     });
   };

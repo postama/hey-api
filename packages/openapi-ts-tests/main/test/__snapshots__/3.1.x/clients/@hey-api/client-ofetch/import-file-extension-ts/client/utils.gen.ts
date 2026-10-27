@@ -289,7 +289,7 @@ export const wrapErrorReturn = <E>(
  */
 export const buildOfetchOptions = (
   opts: ResolvedRequestOptions,
-  body: BodyInit | null | undefined,
+  body: RequestInit['body'],
   responseType: OfetchResponseType | undefined,
   retryOverride?: OfetchOptions['retry'],
 ): OfetchOptions =>
